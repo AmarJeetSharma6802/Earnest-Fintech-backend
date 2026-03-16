@@ -31,3 +31,5 @@ app.use("/api/tasks", taskRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export default app
