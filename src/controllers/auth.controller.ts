@@ -39,14 +39,16 @@ export const auth = async (req: Request, res: Response) => {
     }
 
     if (action === "login") {
+
       if (!email || !password) {
         return res.status(400).json({ message: "Email and password required" });
       }
 
       const attempts = await redis.incr(`login_attempt:${email}`);
+
       if (attempts === 1) await redis.expire(`login_attempt:${email}`, 600);
 
-      if (attempts > 5)
+      if (attempts > 10)
         return res.status(429).json({ message: "Too many login attempts" });
 
       const user = await prisma.user.findUnique({ where: { email } });
@@ -54,7 +56,7 @@ export const auth = async (req: Request, res: Response) => {
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        console.warn(`Invalid login attempt: ${email}`);
+        // console.warn(`Invalid login attempt: ${email}`);
         return res.status(400).json({ message: "Invalid credentials" });
       }
 

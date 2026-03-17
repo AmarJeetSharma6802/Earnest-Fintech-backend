@@ -13,7 +13,7 @@ export const loginRateLimiter = async (req: Request, res: Response, next: NextFu
       await redis.expire(key, 900);
     }
 
-    if (currentAttempts > 5) {
+    if (currentAttempts > 10) {
       console.warn(`Rate limit exceeded for IP: ${ip}`);
       res.status(429).json({ message: 'Too many login attempts, please try again later.' });
       return;
