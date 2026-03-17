@@ -29,7 +29,7 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const getTasks = async (req: Request, res: Response) => {
   try {
-    // const userId = (req as any).user.id;
+    const userId = (req as any).user.id;
 
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
@@ -38,8 +38,8 @@ export const getTasks = async (req: Request, res: Response) => {
     const search = req.query.search as string;
     const status = req.query.status as string;
 
-    // const whereClause: any = { userId }; 
-    const whereClause: any = {  }; //public can see this post or task
+    const whereClause: any = { userId }; 
+    // const whereClause: any = {  }; //public can see this post or task
 
     if (search) {
       whereClause.title = { contains: search, mode: 'insensitive' };
@@ -75,13 +75,13 @@ export const getTasks = async (req: Request, res: Response) => {
 
 export const getTaskById = async (req: Request, res: Response) => {
   try {
-    // const userId = (req as any).user.id;
+    const userId = (req as any).user.id;
 
     const id = req.params.id as string;
 
     const task = await prisma.task.findFirst({
-      // where: { id, userId }
-      where: { id }
+      where: { id, userId }
+      // where: { id }
     });
 
     if (!task) {

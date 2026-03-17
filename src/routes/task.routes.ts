@@ -6,8 +6,8 @@ const router = Router();
 
 
 router.post("/", authUser, createTask);
-router.get("/", getTasks);
-router.get("/:id",  getTaskById);
+router.get("/", authUser,getTasks);
+router.get("/:id",authUser, getTaskById);
 router.patch("/:id",authUser, updateTask);
 router.delete("/:id", authUser, deleteTask);
 router.patch("/:id/toggle", authUser, toggleTaskStatus);

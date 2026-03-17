@@ -16,6 +16,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+// Example API check
 app.get("/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date() });
 });
