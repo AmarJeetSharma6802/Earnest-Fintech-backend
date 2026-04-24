@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import prisma from '../db/prisma';
 import redis from '../utils/redis';
+
 export const auth = async (req: Request, res: Response) => {
   try {
     const { name, email, password, action } = req.body;

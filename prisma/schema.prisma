@@ -31,3 +31,30 @@ model Task {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
+
+enum CityEnum {
+  DELHI
+  GURUGRAM
+  NOIDA
+  BANGALORE
+  KOLKATA
+  CHANDIGARH
+  UP
+}
+
+model Booking {
+  id               String   @id @default(uuid())
+  
+  fullName         String
+  phone            String
+  
+  city             CityEnum
+  
+  appointmentDate  DateTime   // actual visit date
+  appointmentTime  String     // "17:00" (simple rakhte hain)
+
+  createdAt        DateTime @default(now())
+
+  // optional tracking
+  bookingCount     Int       @default(1)
+}
